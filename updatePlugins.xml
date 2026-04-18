@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0.0" encoding="UTF-8"?>
 <plugins>
   <plugin
     id="com.guilherme.obsidianpulse"
-    url="https://github.com/SEU_USUARIO/obsidian-pulse-theme/releases/latest/download/ObsidianPulse-1.0.0.zip"
+    url="https://github.com/tavaresx1912/obsidian-pulse-theme/releases/download/v1.0.0/ObsidianPulse-1.0.0.zip"
     version="1.0.0">
     <idea-version since-build="231"/>
     <description>Tema dark para IDEs JetBrains — Obsidian Pulse.</description>
