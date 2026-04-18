@@ -1,0 +1,32 @@
+<idea-plugin>
+  <id>com.guilherme.obsidianpulse</id>
+  <name>Obsidian Pulse</name>
+  <version>1.0.0</version>
+  <vendor>Guilherme</vendor>
+
+  <description><![CDATA[
+    <h2>Obsidian Pulse — Dark Theme</h2>
+    <p>Tema dark para IDEs JetBrains com paleta de cores calibrada para longas sessões de código.</p>
+    <ul>
+      <li>Backgrounds profundos com camadas de elevação sutis</li>
+      <li>Syntax highlighting para 10+ linguagens</li>
+      <li>Suporte a Rainbow Brackets</li>
+      <li>Compatível com IntelliJ IDEA, WebStorm, PyCharm, CLion, GoLand, Rider, PhpStorm, DataGrip e Android Studio</li>
+    </ul>
+  ]]></description>
+
+  <idea-version since-build="231" />
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <themeProvider
+        id="a7e3b1c9-4f2d-8a6e-b5c0-d1e2f3a4b5c6"
+        path="/themes/ObsidianPulse.theme.json"/>
+    <bundledColorScheme path="/themes/ObsidianPulse"/>
+  </extensions>
+
+  <change-notes><![CDATA[
+    <b>1.0.0</b> — Lançamento inicial.
+  ]]></change-notes>
+</idea-plugin>
