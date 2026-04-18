@@ -5,13 +5,13 @@ on:
     branches: [main]
     paths:
       - 'plugin-src/**'
-      - 'updatePlugins.xml'
 
 permissions:
   contents: write
 
 jobs:
   release:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,19 +41,33 @@ jobs:
           cd dist
           python3 -c "
           import zipfile, os
-          with zipfile.ZipFile('ObsidianPulse-${{ steps.version.outputs.version }}.zip', 'w', zipfile.ZIP_DEFLATED) as z:
+          version = '${{ steps.version.outputs.version }}'
+          with zipfile.ZipFile(f'ObsidianPulse-{version}.zip', 'w', zipfile.ZIP_DEFLATED) as z:
               for root, dirs, files in os.walk('ObsidianPulse'):
                   for file in files:
                       filepath = os.path.join(root, file)
                       z.write(filepath)
           "
 
-      - name: Atualizar URL no updatePlugins.xml
+      - name: Atualizar updatePlugins.xml
         run: |
-          sed -i "s|url=\"[^\"]*\"|url=\"https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.version }}/ObsidianPulse-${{ steps.version.outputs.version }}.zip\"|" updatePlugins.xml
-          sed -i "s|version=\"[^\"]*\"|version=\"${{ steps.version.outputs.version }}\"|" updatePlugins.xml
+          VERSION=${{ steps.version.outputs.version }}
+          REPO=${{ github.repository }}
+          cat > updatePlugins.xml << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <plugins>
+            <plugin
+              id="com.guilherme.obsidianpulse"
+              url="https://github.com/${REPO}/releases/download/v${VERSION}/ObsidianPulse-${VERSION}.zip"
+              version="${VERSION}">
+              <idea-version since-build="231"/>
+              <description>Tema dark para IDEs JetBrains — Obsidian Pulse.</description>
+              <change-notes>${VERSION} — Release.</change-notes>
+            </plugin>
+          </plugins>
+          EOF
 
-      - name: Commit updatePlugins.xml atualizado
+      - name: Commit updatePlugins.xml
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
